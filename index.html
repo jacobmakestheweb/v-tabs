@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>// v-tabs: shadom dom tabs slot element</title>
+    <script defer src="v-tabs.js"></script>
+    <link rel="stylesheet"
+          href="https://unpkg.com/awsm.css/dist/awsm.min.css"
+    />
+    <style>
+      html, body { background-color: lightgrey;}
+      li {
+        cursor: pointer;
+      }
+      .faded-in {
+        animation: fadeEffect 1s; /* Fading effect takes 1 second */
+      }
+      @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+      }
+      h1 { color: darkgreen;}
+    </style>
+  </head>
+  <body>
+   <main>
+    <h1>::scripting-languages::</h1>
+    <br>
+    <v-tabs>
+     <ul slot="master-list">
+       <nav>
+        <li>./home</li>
+        <li>./bash</li>
+        <li>./faust</li>
+        <li>./lua</li>
+        <li>./javascript</li>
+       </nav>
+      </ul>
+      <br>
+      <section data-name="./bash" class="faded-in"> 
+        <a href="https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29"> from wikipedia on Bash : </a>
+        <p class="faded-in"> "Bash is a Unix shell and command language written by Brian Fox for the GNU Project as a free software replacement for the Bourne shell.[11][12] First released in 1989,[13] it has been used as the default login shell for most Linux distributions.[14] A version is also available for Windows 10 via the Windows Subsystem for Linux.[15] It is also the default user shell in Solaris 11.[16] Bash was also the default shell in all versions of Apple macOS prior to the 2019 release of macOS Catalina, which changed the default shell to zsh, although Bash currently remains available as an alternative shell.[17]
+          Bash is a command processor that typically runs in a text window where the user types commands that cause actions. Bash can also read and execute commands from a file, called a shell script. Like most Unix shells, it supports filename globbing (wildcard matching), piping, here documents, command substitution, variables, and control structures for condition-testing and iteration. The keywords, syntax, dynamically scoped variables and other basic features of the language are all copied from sh. Other features, e.g., history, are copied from csh and ksh. Bash is a POSIX-compliant shell, but with a number of extensions.
+          The shell's name is an acronym for Bourne Again Shell, a pun on the name of the Bourne shell that it replaces[18] and the notion of being "born again".[19][20]
+          A security hole in Bash dating from version 1.03 (August 1989),[21] dubbed Shellshock, was discovered in early September 2014 and quickly led to a range of attacks across the Internet.[22][23][24] Patches to fix the bugs were made available soon after the bugs were identified."
+        </p>
+      </section>
+      <section data-name="./faust" class="faded-in">
+        <a href="https://en.wikipedia.org/wiki/FAUST_(programming_language)"> from wikipedia on Faust : </a>
+        <p>"FAUST (Functional AUdio STream) is a domain-specific purely functional programming language for 
+        implementing signal processing algorithms in the form of libraries, audio plug-ins, or standalone applications. 
+        A FAUST program denotes a signal processor: a mathematical function that is applied to some input signal and then fed out."
+        </p>
+      </section>
+      <section data-name="./lua" class="faded-in">
+        <a href="https://en.wikipedia.org/wiki/Lua_(programming_language)"> from wikipedia on Lua : </a>
+        <p>
+            "Lua (/ˈluːə/ LOO-ə; from Portuguese: lua [ˈlu.(w)ɐ] meaning moon)[a] is a lightweight, high-level, multi-paradigm programming language designed primarily for embedded use in applications.[3] Lua is cross-platform, since the interpreter of compiled bytecode is written in ANSI C,[4] and Lua has a relatively simple C API to embed it into applications."
+        </p>
+      </section>
+      <section data-name="./javascript" class="faded-in">
+        <a href="https://en.wikipedia.org/wiki/JavaScript"> from wikipedia on Javascript : </a>
+        <p>"JavaScript (/ˈdʒɑːvəˌskrɪpt/),[9] often abbreviated as JS, is a programming language that conforms to the ECMAScript specification.[10] JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions.
+          Alongside HTML and CSS, JavaScript is one of the core technologies of the World Wide Web.[11] Over 97% of websites use it client-side for web page behavior,[12] often incorporating third-party libraries.[13] Most web browsers have a dedicated JavaScript engine to execute the code on the user's device."
+        </p>
+      </section>
+    </v-tabs>
+
+    <template id="tab-bar-template">
+      <section>
+          <style>
+            p {
+              animation: fadeEffect 1s;
+            }
+            @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
+            }
+            h1 { color: darkgreen;}
+          </style>
+          <section data-name="./home">
+          </section>
+          <slot name="master-list">
+          </slot>
+          <article>
+          <slot name="choice">
+          <h1> About This Page: </h1>
+          <p>
+            this page uses a vanilla custom ES6 component to give us easy rendering based on a list
+          </p>
+          <p>
+            in other words, it's an encapsulted tabs web component, with no dependencies !
+          </p>
+          <p>
+            i call it v-tabs !(v for vanilla)
+          </p>
+          <p>
+            the best part is, we are rendering the markup programmatically instead of simply hiding it with CSS.
+            so we have a way to toggle render of markup at a high level !
+          </p>
+          <h1> Usage: </h1>
+          <p>
+            download the script and include it on your page.
+          </p>
+          <p>
+            now we can use our tag like any other element. but how ??
+          </p>
+          <p>
+            put v-tabs in the page and then inside it place an unordered list with a slot value "master-list".
+            now just add a regular list like the one above.
+          </p>
+          <p>
+            next (right after the list), define sections of your markup to be rendered (with section tags).
+            supply each one with the attribute data-name and set it equal to the it's corresponding string in the list
+          </p>
+          <p>
+            now define a template tag to render it to the page where and how yo want. supply the tag with an id value
+            "tab-bar-template". then open a nav section, and inside create the section you want rendered by default.
+          </p>
+          <p>
+            instead of putting the contents inside of it, first create a slot with the name set "master-list". since we only
+            want those things to render right away, we close our nav tag.
+          </p>
+          <p>
+            now we just make a slot for our content. create a slot tag with name value "choice". Inside this tag, we put
+            our pages default contents. in this tag is where the text your reading right now is rendered. And so we're 
+            done!
+          </p>
+          <p>
+            note: customize the tab colors in the v-tabs.js file, and further style the contents of the shadow dom in the template.
+          </p>
+          <p>
+            note: these tabs perform a render from the shadow dom. normal usage would probably include some more embedded components otherwise the solution
+            is likely overkill. if your not working with any other web components, you can use my <a href="https://codepen.io/thedoseoftruth/pen/rNwrqMZ?editors=1010">"static tabs"</a> "static web component" or for something more
+            full featured without a component form:
+          </p>
+          <ul>
+            <li><a href="https://github.com/cferdinandi/tabby">tabby js</a> simple and easy js tabs</li>
+            <li><a href="https://github.com/Twikito/easy-toggle-state"> easy toggle state</a> a tiny lib for all kinds of css toggling via data attributes, including tabs</li>
+          </ul>
+          <p>
+            check the source code of this page either in your dev tools or on github/glitch to check how to use by example.
+          </p>
+          </slot>
+        </article>
+      </section>
+    </template>
+   </main>
+  </body>
+</html>
+
